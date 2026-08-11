@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Form, TextField, Label, Input, TextArea, FieldError, Button } from "@heroui/react";
 import { useCategories } from "@/hooks/useCategories";
-import { Product, ProductPayload, ProductStatus } from "@/types/product.types";
+import { Product, ProductPayload, ProductStatus } from "../../types/products.types";
 
 interface ProductFormProps {
   initialData?: Product;

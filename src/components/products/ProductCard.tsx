@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FiBox, FiImage } from "react-icons/fi";
-import { Product } from "@/types/product.types";
+import { Product } from "../../types/products.types";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 
 export function ProductCard({ product }: { product: Product }) {

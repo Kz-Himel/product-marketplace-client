@@ -1,5 +1,5 @@
 import { FiPackage } from "react-icons/fi";
-import { Product } from "@/types/product.types";
+import { Product } from "../../types/products.types";
 import { ProductCard } from "./ProductCard";
 import { EmptyState } from "@/components/ui/EmptyState";
 
