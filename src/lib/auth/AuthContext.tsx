@@ -9,8 +9,8 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import { authApi } from "@/lib/api/auth.api";
-import { AuthUser, LoginPayload, RegisterPayload } from "@/types/auth.types";
+import { authApi } from "../api/auth.api";
+import { AuthUser, LoginPayload, RegisterPayload } from "../../types/auth.types";
 
 interface AuthContextValue {
   user: AuthUser | null;

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Form, TextField, Label, Input, FieldError, Button } from "@heroui/react";
 import { FiUserPlus } from "react-icons/fi";
 import { motion } from "framer-motion";
-import { useAuth } from "@/lib/auth/useAuth";
+import { useAuth } from "../../../lib/auth/useAuth";
 
 export default function RegisterPage() {
   const { register, login } = useAuth();

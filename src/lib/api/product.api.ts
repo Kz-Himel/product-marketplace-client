@@ -1,6 +1,6 @@
-import apiClient from "./client";
+import apiClient from "../api/client.api";
 import { ApiResponse } from "@/types/common.types";
-import { Product, ProductPayload } from "@/types/product.types";
+import { Product, ProductPayload } from "../../types/products.types";
 
 export const productApi = {
   getAll: async () => {

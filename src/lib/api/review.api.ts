@@ -1,4 +1,4 @@
-import apiClient from "./client";
+import apiClient from "../api/client.api";
 import { ApiResponse } from "@/types/common.types";
 import {
   Review,

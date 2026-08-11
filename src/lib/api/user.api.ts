@@ -1,6 +1,6 @@
-import apiClient from "./client";
-import { ApiResponse } from "@/types/common.types";
-import { User } from "@/types/auth.types";
+import apiClient from "../api/client.api";
+import { ApiResponse } from "../../types/common.types";
+import { User } from "../../types/auth.types";
 
 export interface UpdateUserPayload {
   name?: string;
