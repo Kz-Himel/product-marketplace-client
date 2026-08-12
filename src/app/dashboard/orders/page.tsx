@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 import { useOrders, useUpdateOrder, useDeleteOrder } from "@/hooks/useOrders";
-import { OrderTable } from "@/components/orders/OrderTable";
+import { OrderTable } from "../../../components/orders/OrderTable";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
