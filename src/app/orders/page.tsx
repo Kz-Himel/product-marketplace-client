@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FiShoppingCart, FiPlus } from "react-icons/fi";
 import { Button } from "@heroui/react";
-import { useOrders, useUpdateOrder } from "@/hooks/useOrders";
+import { useOrders, useUpdateOrder } from "../../hooks/useOrders";
 import { OrderTable } from "@/components/orders/OrderTable";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { EmptyState } from "@/components/ui/EmptyState";

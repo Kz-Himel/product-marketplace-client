@@ -9,19 +9,15 @@ export default function NewProductPage() {
   const createProduct = useCreateProduct();
 
   return (
-    <div className="mx-auto max-w-lg">
+    <div>
       <h1 className="mb-6 font-display text-2xl font-semibold">New product</h1>
       <ProductForm
         isSubmitting={createProduct.isPending}
-        onSubmit={(payload) =>
-          createProduct.mutate(payload, {
-            onSuccess: () => router.push("/dashboard/products"),
-          })
-        }
+        onSubmit={async (payload) => {
+          await createProduct.mutateAsync(payload);
+          router.push("/dashboard/products");
+        }}
       />
-      {createProduct.isError && (
-        <p className="mt-4 text-sm text-danger">{(createProduct.error as Error).message}</p>
-      )}
     </div>
   );
 }

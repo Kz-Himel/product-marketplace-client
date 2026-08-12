@@ -9,23 +9,22 @@ export default function EditProductPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const { data: product, isLoading } = useProduct(id);
-  const updateProduct = useUpdateProduct();
+  const updateProduct = useUpdateProduct(id);
 
   if (isLoading) return <LoadingSpinner />;
-  if (!product) return <p className="text-danger">Product not found.</p>;
+  if (!product) return null;
 
   return (
-    <div className="mx-auto max-w-lg">
+    <div>
       <h1 className="mb-6 font-display text-2xl font-semibold">Edit product</h1>
       <ProductForm
-        initialData={product}
+        initialValues={product}
+        submitLabel="Update product"
         isSubmitting={updateProduct.isPending}
-        onSubmit={(payload) =>
-          updateProduct.mutate(
-            { id, payload },
-            { onSuccess: () => router.push("/dashboard/products") }
-          )
-        }
+        onSubmit={async (payload) => {
+          await updateProduct.mutateAsync(payload);
+          router.push("/dashboard/products");
+        }}
       />
     </div>
   );

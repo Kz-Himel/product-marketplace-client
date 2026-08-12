@@ -1,66 +1,71 @@
 "use client";
 
 import { useState } from "react";
-import { Form, TextArea, Label, FieldError, Button } from "@heroui/react";
 import { FiStar } from "react-icons/fi";
-import { Review } from "@/types/review.types";
+import { Form, TextField, Label, Input, FieldError, Button } from "@heroui/react";
+import { useCreateReview } from "@/hooks/useReviews";
 
-interface ReviewFormProps {
-  initialData?: Review;
-  isSubmitting?: boolean;
-  onSubmit: (data: { rating: number; comment: string }) => void;
-  onCancel?: () => void;
-}
+export function ReviewForm({ productId }: { productId: string }) {
+  const createReview = useCreateReview();
+  const [rating, setRating] = useState(5);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
-export function ReviewForm({ initialData, isSubmitting, onSubmit, onCancel }: ReviewFormProps) {
-  const [rating, setRating] = useState(initialData?.rating ?? 5);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
+    setSuccess(false);
+
     const formData = new FormData(e.currentTarget);
-    onSubmit({ rating, comment: String(formData.get("comment") || "") });
+    const comment = String(formData.get("comment") || "");
+
+    try {
+      await createReview.mutateAsync({ rating, comment, productId });
+      setSuccess(true);
+      e.currentTarget.reset();
+      setRating(5);
+    } catch (err: any) {
+      setError(err.message || "Could not submit review");
+    }
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-border bg-surface p-4">
+    <Form onSubmit={handleSubmit} className="space-y-3 rounded-2xl border border-border bg-surface p-5">
       <div>
-        <label className="mb-1.5 block text-sm font-medium">Your rating</label>
+        <label className="mb-1 block text-sm font-medium">Your rating</label>
         <div className="flex gap-1">
-          {Array.from({ length: 5 }).map((_, i) => (
+          {[1, 2, 3, 4, 5].map((value) => (
             <button
+              key={value}
               type="button"
-              key={i}
-              onClick={() => setRating(i + 1)}
-              className={`text-xl ${i < rating ? "text-price" : "text-border"}`}
+              onClick={() => setRating(value)}
+              className="text-xl"
+              aria-label={`Rate ${value} stars`}
             >
-              <FiStar className={i < rating ? "fill-current" : ""} />
+              <FiStar
+                className={value <= rating ? "fill-price text-price-foreground" : "text-muted"}
+              />
             </button>
           ))}
         </div>
       </div>
 
-      <TextArea
-        name="comment"
-        isRequired
-        minLength={3}
-        defaultValue={initialData?.comment}
-        placeholder="Share your experience with this product"
-        rows={3}
-      >
+      <TextField name="comment" isRequired minLength={3}>
         <Label className="text-sm font-medium">Comment</Label>
+        <Input placeholder="Share your experience with this product" />
         <FieldError className="text-xs text-danger" />
-      </TextArea>
+      </TextField>
 
-      <div className="flex gap-3">
-        <Button type="submit" size="sm" isDisabled={isSubmitting}>
-          {isSubmitting ? "Saving..." : initialData ? "Update review" : "Post review"}
-        </Button>
-        {onCancel && (
-          <Button type="button" size="sm" variant="ghost" onPress={onCancel}>
-            Cancel
-          </Button>
-        )}
-      </div>
+      {error && <p className="rounded-lg bg-danger/10 px-3 py-2 text-sm text-danger">{error}</p>}
+      {success && (
+        <p className="rounded-lg bg-success/10 px-3 py-2 text-sm text-success">
+          Review submitted!
+        </p>
+      )}
+
+      <Button type="submit" size="sm" isDisabled={createReview.isPending}>
+        {createReview.isPending ? "Submitting..." : "Submit review"}
+      </Button>
     </Form>
   );
 }
