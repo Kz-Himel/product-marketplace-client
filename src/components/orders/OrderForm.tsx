@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Form, TextField, Label, Input, FieldError, Button } from "@heroui/react";
-import { Product } from "@/types/product.types";
+import { Product } from "@/types/products.types";
 import { CreateOrderPayload } from "@/types/order.types";
 
 interface OrderFormProps {
