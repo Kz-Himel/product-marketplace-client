@@ -65,19 +65,16 @@ export default function RegisterPage() {
             <Input placeholder="Your name" />
             <FieldError className="text-xs text-danger" />
           </TextField>
-
           <TextField name="email" type="email" isRequired>
             <Label className="text-sm font-medium">Email</Label>
             <Input placeholder="you@example.com" />
             <FieldError className="text-xs text-danger" />
           </TextField>
-
           <TextField name="password" isRequired minLength={6}>
             <Label className="text-sm font-medium">Password</Label>
             <Input placeholder="At least 6 characters" type="password" />
             <FieldError className="text-xs text-danger" />
           </TextField>
-
           <TextField name="confirmPassword" isRequired minLength={6}>
             <Label className="text-sm font-medium">Confirm password</Label>
             <Input placeholder="Repeat password" type="password" />
