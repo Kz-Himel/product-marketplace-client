@@ -29,14 +29,13 @@ export function useCreateProduct() {
   });
 }
 
-export function useUpdateProduct() {
+export function useUpdateProduct(id: string) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, payload }: { id: string; payload: Partial<ProductPayload> }) =>
-      productApi.update(id, payload),
-    onSuccess: (_data, variables) => {
+    mutationFn: (payload: Partial<ProductPayload>) => productApi.update(id, payload),
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: productKeys.all });
-      queryClient.invalidateQueries({ queryKey: productKeys.detail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: productKeys.detail(id) });
     },
   });
 }

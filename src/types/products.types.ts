@@ -1,5 +1,3 @@
-import { CategoryStatus } from "./category.types";
-
 export type ProductStatus = "ACTIVE" | "INACTIVE" | "OUT_OF_STOCK";
 
 export interface ProductCategoryRef {

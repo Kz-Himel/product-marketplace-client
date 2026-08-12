@@ -1,6 +1,6 @@
 import apiClient from "../api/client.api";
+import { ApiResponse } from "@/types/common.types";
 import {
-  ApiResponse,
   AuthUser,
   LoginPayload,
   LoginResponseData,
