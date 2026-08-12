@@ -2,17 +2,30 @@ import apiClient from "../api/client.api";
 import { ApiResponse } from "../../types/common.types";
 import { User } from "../../types/auth.types";
 
+export interface CreateUserPayload {
+  name: string;
+  email: string;
+  password: string;
+  role?: UserRole;
+}
+
 export interface UpdateUserPayload {
   name?: string;
   email?: string;
   password?: string;
-  role?: "USER" | "ADMIN";
+  role?: UserRole;
 }
 
 export const userApi = {
   // ADMIN only
   getAll: async () => {
     const res = await apiClient.get<ApiResponse<User[]>>("/users");
+    return res.data.data;
+  },
+
+  // ADMIN only
+  create: async (payload: CreateUserPayload) => {
+    const res = await apiClient.post<ApiResponse<User>>("/users", payload);
     return res.data.data;
   },
 
